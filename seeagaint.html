@@ -16,6 +16,7 @@
     background: linear-gradient(135deg, #001f3f 0%, #004080 30%, #0074D9 60%, #7FDBFF 100%);
     background-size: 200% 200%;
     animation: gradientShift 8s ease infinite;
+    cursor: pointer; /* menandakan halaman bisa diklik untuk mengaktifkan suara */
   }
 
   @keyframes gradientShift {
@@ -191,44 +192,29 @@
 </style>
 </head>
 
-<body>
+<body onclick="activateAudio()">
 
-<!-- ====== MUSIC PLAYER (YouTube) ====== -->
-<iframe id="bgMusic" src="https://www.youtube.com/embed/jo-JkKpjmwY?enablejsapi=1&loop=1&playlist=jo-JkKpjmwY" style="display:none" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+<!-- ====== AUDIO LATAR (HTML5 Audio) ====== -->
+<audio id="bgMusic" src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Kevin_MacLeod/Calming/Calming_-_Kevin_MacLeod_-_Relaxing.mp3" loop preload="auto"></audio>
 
 <script>
 /*
  activateAudio:
- - Menggunakan YouTube Player API untuk memainkan video dengan suara setelah interaksi pengguna (klik tombol Masuk)
+ - Memainkan audio HTML5 setelah klik pengguna (untuk mematuhi kebijakan browser)
+ - Hanya berjalan sekali (menghapus onclick)
 */
-let player;
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('bgMusic', {
-    events: {
-      'onReady': onPlayerReady
-    }
-  });
-}
-
-function onPlayerReady(event) {
-  // Player siap, tapi jangan play otomatis
-}
-
 function activateAudio() {
-  if (player && typeof player.playVideo === 'function') {
-    player.setVolume(50); // Sesuaikan volume (0-100)
-    player.playVideo();
-  } else {
-    // Fallback jika player belum siap, coba lagi setelah 500ms
-    setTimeout(activateAudio, 500);
-  }
-}
+  const audio = document.getElementById('bgMusic');
+  audio.volume = 0.5; // Sesuaikan volume (0.0 hingga 1.0)
+  audio.play().catch((error) => {
+    console.warn('Audio gagal dimainkan:', error);
+    // Jika gagal, coba lagi pada klik berikutnya
+    document.body.addEventListener('click', () => audio.play(), { once: true });
+  });
 
-// Load YouTube API
-const tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-const firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  // Nonaktifkan aktivasi otomatis lebih lanjut
+  document.body.onclick = null;
+}
 </script>
 
 <!-- ====== HALAMAN PIN ====== -->
@@ -252,8 +238,6 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   <img src="gfty/f8.jpeg" alt="Foto 8">
   <img src="gfty/f9.jpeg" alt="Foto 9">
   <img src="gfty/f10.jpeg" alt="Foto 10">
-  <img src="gfty/f11.jpeg" alt="Foto 11">
-  <img src="gfty/f12.jpeg" alt="Foto 12">
 </div>
 
 <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" class="bird" id="bird" alt="Burung Terbang">
@@ -268,8 +252,6 @@ function checkPin() {
   const error = document.getElementById("errorMsg");
 
   if (input === correctPin) {
-    // Aktifkan musik setelah PIN benar (klik tombol Masuk adalah interaksi pengguna)
-    activateAudio();
     document.getElementById("pinContainer").style.display = "none";
     document.getElementById("typingText").style.display = "block";
     startAnimation();
@@ -304,6 +286,7 @@ function startAnimation() {
     "Semangat dan sukses selalu kalian 💐😊",
     "💖 SEE YOU AGAIN KAKAK 👋🏻💐"
   ];
+
 
   const textElement = document.getElementById("typingText");
   let lineIndex = 0, charIndex = 0;

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Good Morning Animation 💖</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #38bdf8, #f0f9ff);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+  }
+
+  canvas {
+    display: block;
+    opacity: 0;
+    transition: opacity 2s ease;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .text {
+    position: absolute;
+    bottom: 80px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 10px rgba(107, 92, 92, 0.9);
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideIn 2s ease forwards;
+    animation-delay: 3.5s; /* muncul setelah love */
+  }
+
+  @keyframes slideIn {
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes bgShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="text">Selamat pagi <br> Mbak May💖🥰😘</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+// Rumus bentuk love
+function heartPoint(t, scale) {
+  const x = 13 * Math.pow(Math.sin(t), 3);
+  const y = 10 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+  return { x: x * scale, y: -y * scale };
+}
+
+const word = "GOOD MORNING💖";
+let angleOffset = 0;
+let showHeart = false;
+
+// Tampilkan love setelah delay
+setTimeout(() => {
+  showHeart = true;
+  canvas.style.opacity = "1";
+  draw();
+}, 1000);
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+  const baseScale = Math.min(canvas.width, canvas.height) / 50;
+
+  const pulse = 1 + 0.05 * Math.sin(Date.now() / 300);
+  const scale = baseScale * pulse;
+
+  ctx.fillStyle = "white";
+  ctx.font = "bold 22px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  const step = 0.35;
+  const speed = 0.002;
+
+  for (let t = 0; t < Math.PI * 2; t += step) {
+    const tShift = t + angleOffset;
+    const p = heartPoint(tShift, scale);
+    ctx.save();
+    ctx.translate(cx + p.x, cy + p.y);
+    ctx.fillText(word, 0, 0);
+    ctx.restore();
+  }
+
+  angleOffset += speed;
+  requestAnimationFrame(draw);
+}
+</script>
+</body>
+</html>

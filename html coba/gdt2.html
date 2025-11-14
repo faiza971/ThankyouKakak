@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Graduation 🎓🎉</title>
+  <style>
+    
+    :root{
+      --bg1:#1143b9;
+      --bg2:#5095ca;
+      --accent1:#ffd166;
+      --accent2:#06d6a0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      display:flex;align-items:center;justify-content:center;
+      min-height:100vh;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans',Arial;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:white;overflow-x:hidden;padding:1rem;
+      overflow:hidden;
+    }
+
+    .card{
+      width:100%;max-width:900px;
+      padding:1.5rem;border-radius:18px;
+      background:rgba(255,255,255,0.05);
+      box-shadow:0 10px 30px rgba(0,0,0,0.4);
+      border:1px solid rgba(255,255,255,0.1);
+      position:relative;z-index:10;
+    }
+
+    h1{
+      font-size:clamp(1.8rem, 6vw, 3.5rem);
+      line-height:1.2;display:flex;gap:.5rem;flex-wrap:wrap;
+      justify-content:center;text-align:center;
+      margin-bottom:.5rem;
+    }
+    .sub{
+      font-size:clamp(.9rem, 4vw, 1.3rem);
+      text-align:center;margin-bottom:1rem;
+    }
+
+    .row{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem}
+    .emoji{font-size:clamp(1.2rem,5vw,2.5rem)}
+
+    .foot{text-align:center;font-size:.8rem;margin-top:.8rem;color:rgba(255,255,255,.7)}
+
+    /* Layout: desktop side-by-side, mobile stacked */
+    .layout{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+    .left{flex:1;min-width:250px}
+    .right{flex:0 0 200px;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+
+    @media(max-width:600px){
+      .layout{flex-direction:column;align-items:center;text-align:center}
+      .right{flex:unset;flex-direction:row;justify-content:center;gap:1rem}
+    }
+
+    /* animasi bouncing */
+    .bounce{display:inline-block;animation:bounce 1.6s ease infinite}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+    @keyframes fall{
+      to{transform:translateY(110vh) rotate(720deg);opacity:0}
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section class="layout">
+      <div class="left">
+        <h1>
+          <span class="emoji">🎉</span>
+          <span class="bounce">Happy Graduation<br>Mbak Maylinda</span>
+          <span class="emoji">🎓</span>
+        </h1>
+        <p class="sub">Semoga sukses di langkah selanjutnya ✨<br>Dan semoga tercapai apa yang dicita-citakan 🤲</p>
+        <div class="row">
+          <span class="emoji">🎊</span><span class="emoji">🥳</span>
+          <span class="emoji">🌟</span><span class="emoji">✨</span>
+          <span class="emoji">🎈</span><span class="emoji">💐</span>
+        </div>
+      </div>
+      <aside class="right">
+        <div style="font-size:3rem">🎈</div>
+        <div style="font-size:2.5rem">🎉</div>
+        <div style="font-size:2rem">🥳</div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const EMOJIS = ['🎉','🎊','✨','🌟','🥳','🎈','💐'];
+
+    function dropEmoji(){
+      const el=document.createElement("div");
+      el.textContent=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+      el.style.position="fixed";
+      el.style.left=Math.random()*100+"%";
+      el.style.top="-2rem";
+      el.style.fontSize=Math.random()*20+16+"px";
+      el.style.animation=`fall ${2+Math.random()*3}s linear`;
+      el.style.zIndex="1";
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(),5000);
+    }
+
+    // jalan otomatis tiap 200ms
+    setInterval(dropEmoji,200);
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ucapan</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      background: linear-gradient(-45deg, #d5dbf1, #9faae7, #a18cd1, #e4b0d5);
+      background-size: 400% 400%;
+      animation: bgmove 10s ease infinite;
+      font-family:'Poppins',sans-serif;
+    }
+
+    @keyframes bgmove {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    .container{
+      text-align:center;
+      color:white;
+      position:relative;
+      z-index:2;
+    }
+
+    h1{
+      font-size: clamp(32px,6vw,64px);
+      font-weight:700;
+      background: linear-gradient(90deg,#e4dedf,#fbc2eb,#a18cd1);
+      -background-clip:text;
+      -text-fill-color:transparent;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from{text-shadow:0 0 10px rgba(255,255,255,.4),0 0 20px #f7b9b9,0 0 30px #ff6b81}
+      to{text-shadow:0 0 20px rgba(255,255,255,.6),0 0 40px #a18cd1,0 0 60px #fbc2eb}
+    }
+
+    p{
+      font-size:18px;
+      margin-top:10px;
+      opacity:0;
+      animation: fadeIn 3s ease forwards;
+      animation-delay:2s;
+    }
+
+    @keyframes fadeIn{to{opacity:1}}
+
+    /* Big heart pop */
+    .big-heart{
+      width:120px;
+      height:110px;
+      position:relative;
+      margin:20px auto;
+      transform:scale(3);
+      animation: pop 3s ease-out forwards infinite;
+    }
+
+    .big-heart::before,
+    .big-heart::after{
+      content:'';
+      position:absolute;
+      width:60px;
+      height:92px;
+      background:#ff6b81;
+      border-radius:50px 50px 0 0;
+      top:50;
+    }
+    .big-heart::before{left:60px;transform:rotate(-45deg);transform-origin:0 100%;}
+    .big-heart::after{left:0;transform:rotate(45deg);transform-origin:100% 100%;}
+
+    @keyframes pop{
+      0%{transform:scale(0)}
+      60%{transform:scale(2)}
+      100%{transform:scale(1)}
+    }
+    /* Confetti */
+    .confetti span{
+      position:absolute;
+      width:8px;
+      height:14px;
+      background:var(--c);
+      top:-50px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall{
+      to{transform:translateY(110vh) rotate(360deg)}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="big-heart"></div>
+    <h1>Selamat malam 😘😘😘</h1>
+    <h1>Teman-Teman</h1>
+    <h2>Selamat istirahat <br> Dan <br> Bobok yang nyenyak yaaa ✨</h2>
+  </div>
+
+<!-- Confetti Elements -->
+<div class="confetti">
+<span style="--c:#a0e7ff;left:10%;animation-duration:4s;animation-delay:0s"></span>
+<span style="--c:#b5f0ff;left:20%;animation-duration:5s;animation-delay:1s"></span>
+<span style="--c:#89c2ff;left:30%;animation-duration:6s;animation-delay:0.5s"></span>
+<span style="--c:#d0f4ff;left:40%;animation-duration:4.5s;animation-delay:0.2s"></span>
+<span style="--c:#7dd3fc;left:50%;animation-duration:5.5s;animation-delay:0.7s"></span>
+<span style="--c:#38bdf8;left:60%;animation-duration:4s;animation-delay:1.2s"></span>
+<span style="--c:#0ea5e9;left:70%;animation-duration:5.2s;animation-delay:0.3s"></span>
+<span style="--c:#73abc7;left:80%;animation-duration:6.3s;animation-delay:0.8s"></span>
+<span style="--c:#38bdf8;left:90%;animation-duration:4.8s;animation-delay:1.5s"></span>
+
+<!-- Emoji jatuh -->
+<span class="emoji" style="left:15%;animation-duration:6s;animation-delay:0s">💖</span>
+<span class="emoji" style="left:25%;animation-duration:7s;animation-delay:1s">😘</span>
+<span class="emoji" style="left:35%;animation-duration:5.5s;animation-delay:0.5s">🎉</span>
+<span class="emoji" style="left:45%;animation-duration:6.2s;animation-delay:0.3s">🥳</span>
+<span class="emoji" style="left:55%;animation-duration:7.5s;animation-delay:0.7s">✨</span>
+<span class="emoji" style="left:65%;animation-duration:6.8s;animation-delay:0.4s">🎊</span>
+<span class="emoji" style="left:75%;animation-duration:5.8s;animation-delay:1s">💖</span>
+<span class="emoji" style="left:85%;animation-duration:7.2s;animation-delay:0.6s">😘</span>
+<span class="emoji" style="left:95%;animation-duration:6.5s;animation-delay:1.3s">🎉</span>
+</div>
+</body>
+</html>
